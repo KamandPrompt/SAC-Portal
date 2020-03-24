@@ -20,13 +20,14 @@ Type the following to update your local repository
 
 Contributing
 ---
-Now you should see a new folder called SAC-Portal being created in your home folder .
-Create or make changes to files existing in the folder. After you are done , upload the files to your git repository.
 
 ###Pushing files to your local repository
 It is always recommended to work from different branches and give pull requests from the there . 
 So create a new branch in your local machine using
 `git checkout -b <Branch-Name>`
+
+Now you should see a new folder called SAC-Portal being created in your home folder .
+Create or make changes to files existing in the folder. After you are done , upload the files to your git repository.
 
 Add files to this branch using 
 `git add <file-name>`
