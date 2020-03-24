@@ -4,12 +4,13 @@ SAC Portal for IIT Mandi
 Hello fellow contributors! To get started with the project , go ahead and fork the repository . You should see the URL change to
 ```
 https://github.com/Your Username/SAC-Portal
-``` 
+```
 
 Cloning This Repository
 --- 
 To clone this repository , copy the URL. Open your terminal or git bash and enter the following aftering replacing your username. 
-```git clone https://github.com/Your Username/SAC-Portal.git
+```
+git clone https://github.com/Your Username/SAC-Portal.git
 ```
 
 Staying Updated
@@ -31,7 +32,8 @@ Contributing
 ### Pushing files to your local repository
 It is always recommended to work from different branches and give pull requests from the there . 
 So create a new branch in your local machine using
-```git checkout -b <Branch-Name>
+```
+git checkout -b <Branch-Name>
 ```
 
 Now you should see a new folder called SAC-Portal being created in your home folder .
