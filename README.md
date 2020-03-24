@@ -33,8 +33,13 @@ Add files to this branch using
 `git add <file-name>`
 `git commit -m "Enter comments"`
 
-Commit the changes to your repository
-`git push origin <branch name>`
+Commit the changes to your repository , The following command holds good if the new branch wasn't already made in your github page .
+`git push --set-upstream origin new_branch`
 
-Then from your forked repository on github , make a pull request to the KamandPrompt page .
+For later commits just
+`git push` will work
+
+Then from your forked repository on github , make a pull request to the KamandPrompt page . 
+
+
 
