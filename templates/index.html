@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+   {% for i in messages %}
+    <p style="text-align:center;margin:2% 0 -1% 32.5%;padding:6px 0;width:35%;border-radius:7px;color:rgb(0,136,0);background:rgba(0,170, 0, 0.3);">
+       {{ i }}
+    </p>
+   {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <h1>Hello World</h1>
+{% endblock %}
