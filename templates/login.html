@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/login.css') }}">
+{% endblock %}
+{% block content %}
+    <div>
+      <h1 class="alc" style="margin-top:20px;">Placeholder Text for SAC Logo</h1>
+    </div>
+    <div>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+       {% for i in messages %}
+        <p class="alc" style="margin:2% 0 -1% 32.5%;padding:6px 0;width:35%;border-radius:7px;color:rgb(136, 0, 0);background:rgba(170, 0, 0, 0.3);">
+           {{ i }}
+        </p>
+       {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+    <div class="logform">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="alc" style="color:#17a2b8">Log In</legend>
+          <div class="form-group">
+            <span style="color:#17a2b8;">{{ form.email.label(class="form-control-label")}}</span>
+            {% if form.email.errors %}
+              {{ form.email(class="form-control form-control-lg is-invalid")}}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                 <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.email(class="form-control form-control-lg")}}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            <span style="color:#17a2b8;">{{ form.password.label(class="form-control-label")}}</span>
+            {% if form.password.errors %}
+              {{ form.password(class="form-control form-control-lg is-invalid")}}
+              <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                 <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.password(class="form-control form-control-lg")}}
+            {% endif %}
+          </div>
+
+          <div class="form-check">
+            {{ form.remme(class="form-check-input")}}
+            <span style="color:#17a2b8;">{{ form.remme.label(class="form-check-label")}}</span>
+          </div>
+
+          <div class="form-group alc" style="color:rgb(139, 143, 140);">
+            {{ form.submit(class="btn btn-outline-info button")}}
+          </div>
+
+          <small style="margin-left:40%;"><a style="color:white;" href="#">Forgot Password?</a></small>
+        </fieldset>
+      </form>
+    </div>
+{% endblock %}
