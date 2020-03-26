@@ -5,7 +5,7 @@ app.config['SECRET_KEY']='c828b6ff21f45063fd7860e5c1b1d233'
 
 @app.route('/')
 def home():
-    return flask.render_template('basic.html')
+    return flask.render_template('index.html')
 
 @app.route("/login",methods=['GET','POST'])
 def Login():
