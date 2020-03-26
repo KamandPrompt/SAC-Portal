@@ -1,40 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-      .alc{
-        text-align: center;
-      }
-      .logform{
-        color:rgb(139, 143, 140);
-        margin:3% 0 0 32.5%;
-        width:35%;
-        padding: 10px 20px;
-        border: 1px solid #17a2b8;
-        border-radius: 3px;
-        //background:linear-gradient(180deg, rgb(49, 58, 131),rgb(151, 71, 163));
-      }
-      .button{
-        border-radius:30px;
-        background:rgb(255, 255, 255);
-        padding:10px 40px;
-        color:rgb(139, 143, 140);
-      }
-      .button:hover{
-        border:2px solid black;
-        margin-top:-1px;
-        margin-bottom:-1px;
-        cursor:pointer;
-      }
-    </style>
-    <title>Login | SAC, IIT Mandi</title>
-  </head>
-  <body>
+{% extends "layout.html" %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="../static/css/login.css">
+{% endblock %}
+{% block content %}
     <div>
       <h1 class="alc" style="margin-top:20px;">Placeholder Text for SAC Logo</h1>
     </div>
@@ -84,11 +52,4 @@
         </fieldset>
       </form>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% endblock %}
