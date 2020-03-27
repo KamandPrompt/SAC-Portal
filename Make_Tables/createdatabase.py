@@ -1,17 +1,4 @@
-import mysql.connector
-import os
-from dotenv import load_dotenv
-
-directory = os.getcwd()
-envindex = directory.find('Make_Tables')
-load_dotenv(directory[:envindex]+"/.env")
-
-mydb = mysql.connector.connect(
-        host = os.environ.get("DATABASE_HOST"),
-        user = os.environ.get("DATABASE_USER"),
-        password = os.environ.get("DATABASE_PASSWORD"),
-        port = os.environ.get("DATABASE_PORT")
-	)
+from mysqlconnect import mydb
 
 mycursor = mydb.cursor()
 
