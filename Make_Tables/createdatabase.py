@@ -25,8 +25,13 @@ print("Successfully Created Table ClubMembers ")  #To find the students are in w
 mycursor.execute("CREATE TABLE Coordinators(clubID char(6), userID char(6), FOREIGN KEY (userID) REFERENCES Users(userID), FOREIGN KEY (clubID) REFERENCES Clubs(clubID))")
 print("Successfully Created Table Coordinators ")  #To store who is the coordie of a group
 
-mycursor.execute("CREATE TABLE Events(eventID Integer(4) PRIMARY KEY, eventName varchar(30), about varchar(600), eventDate date, clubID char(6), registered varchar(3000), attended varchar(3000), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
+mycursor.execute("CREATE TABLE Events(eventID Integer(5) PRIMARY KEY, name varchar(30), about varchar(600), date date, time varchar(12), venue varchar(100), clubID char(6), registered varchar(3000), attended varchar(3000), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
 print("Successfully Created Events Table")  #To store all the events
+
+mycursor.execute("CREATE TABLE MemberRequests(userID char(6), clubID char(6), status set('pending','declined'), reason varchar(300), requestdate date, FOREIGN KEY (userID) REFERENCES Users(userID), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
+print("Successfully Created MemberRequests Table")
+#After getting request accepted we can simply move the data from MemberRequests to ClubMembers
+
 
 print("Done Creating Tables")
 mycursor.close()

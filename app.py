@@ -1,6 +1,7 @@
 from flask import url_for,render_template,redirect,Flask,flash
 from forms import LoginForm
-from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement   #Imported the mysqlconnect.py file from Make_tables folder
+from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement, myerror   #Imported the mysqlconnect.py file from Make_tables folder
+#use myerror to track error in mysql
 
 app=Flask(__name__,static_url_path='/public')
 app.config['SECRET_KEY']='c828b6ff21f45063fd7860e5c1b1d233'
