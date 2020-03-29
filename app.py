@@ -1,6 +1,7 @@
-from flask import url_for,render_template,redirect,Flask,flash
+from flask import url_for,render_template,redirect,Flask,flash,jsonify,request
 from forms import LoginForm
 from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement   #Imported the mysqlconnect.py file from Make_tables folder
+import datetime
 
 app=Flask(__name__,static_url_path='/public')
 app.config['SECRET_KEY']='c828b6ff21f45063fd7860e5c1b1d233'
@@ -19,6 +20,26 @@ def Login():
         else:
             flash('Login Unsuccessful. Invalid Email/Password')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
+
+@app.route("/add_event",methods=['GET'])
+def create_event():
+	try:
+		data=request.get_json()
+		eventID=data["eventID"]
+		eventName=data["eventName"]
+		about=data["about"]
+		eventDate=data["eventDate"]
+		eventTime=data["eventTime"]
+		eventVenue=data["eventVenue"]
+		clubID=data["clubID"]
+		registered=data["registered"]
+		attended=data["attended"]
+		mycursor.execute("INSERT INTO Events(eventID, eventName, about, eventDate, eventTime, eventVenue, clubID, registered, attended) VALUES('"+eventID+"','"+eventName+"','"+about+"','"+eventDate+"','"+eventTime+"','"+eventVenue+"','"+clubID+"','"+registered+"','"+attended+"')")
+		mydb.commit()
+		return "Event added successfully!"
+	except:
+		return "Check the ClubID"	
+	
 
 if __name__=="__main__":
     app.run(debug=True)
