@@ -22,7 +22,7 @@ def Login():
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
 #Example  https://host/leaveclub?userID='B19188'&clubID='C10001'
-@app.route('/leaveclub', methods = ['GET'])
+@app.route('/leaveclub', methods = ['POST'])
 def leave_club():
     data = {
         "tablename" : "ClubMembers",
@@ -39,7 +39,7 @@ def leave_club():
         msg = "Deleted"
     except sqlerror as err:
         success=0
-        msg = err
+        msg = str(err)
     
     return(jsonify(success=success,msg=msg))
 
