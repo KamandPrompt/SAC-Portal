@@ -25,7 +25,7 @@ print("Successfully Created Table ClubMembers ")  #To find the students are in w
 mycursor.execute("CREATE TABLE Coordinators(clubID char(6), userID char(6), FOREIGN KEY (userID) REFERENCES Users(userID), FOREIGN KEY (clubID) REFERENCES Clubs(clubID))")
 print("Successfully Created Table Coordinators ")  #To store who is the coordie of a group
 
-mycursor.execute("CREATE TABLE Events(eventID varchar(4) PRIMARY KEY, eventName varchar(30), about varchar(600), eventDate date, eventTime time, eventVenue varchar(20), clubID char(6), registered varchar(3000), attended varchar(3000), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
+mycursor.execute("CREATE TABLE Events(eventID Integer(6) AUTO_INCREMENT=1 PRIMARY KEY, eventName varchar(30), about varchar(600), eventDate date, eventTime time, eventVenue varchar(30), clubID char(6), registered varchar(3000), attended varchar(3000), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
 print("Successfully Created Events Table")  #To store all the events
 
 print("Done Creating Tables")

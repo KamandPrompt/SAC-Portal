@@ -21,25 +21,25 @@ def Login():
             flash('Login Unsuccessful. Invalid Email/Password')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
-@app.route("/add_event",methods=['GET'])
+@app.route("/add_event",methods=['POST']) #add a new event
 def create_event():
+	data=request.get_json()
+	eventName=data["eventName"]
+	about=data["about"]
+	eventDate=data["eventDate"]
+	eventTime=data["eventTime"]
+	eventVenue=data["eventVenue"]
+	clubID=data["clubID"]
+	registered=data["registered"]
+	attended=data["attended"]
 	try:
-		data=request.get_json()
-		eventID=data["eventID"]
-		eventName=data["eventName"]
-		about=data["about"]
-		eventDate=data["eventDate"]
-		eventTime=data["eventTime"]
-		eventVenue=data["eventVenue"]
-		clubID=data["clubID"]
-		registered=data["registered"]
-		attended=data["attended"]
-		mycursor.execute("INSERT INTO Events(eventID, eventName, about, eventDate, eventTime, eventVenue, clubID, registered, attended) VALUES('"+eventID+"','"+eventName+"','"+about+"','"+eventDate+"','"+eventTime+"','"+eventVenue+"','"+clubID+"','"+registered+"','"+attended+"')")
+		mycursor.execute("INSERT INTO Events(eventName, about, eventDate, eventTime, eventVenue, clubID, registered, attended) VALUES('"+eventName+"','"+about+"','"+eventDate+"','"+eventTime+"','"+eventVenue+"','"+clubID+"','"+registered+"','"+attended+"')")
 		mydb.commit()
 		return "Event added successfully!"
 	except:
-		return "Check the ClubID"	
-	
+		return "Check the clubID."	
+		
+
 
 if __name__=="__main__":
     app.run(debug=True)
