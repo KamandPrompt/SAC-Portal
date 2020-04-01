@@ -56,6 +56,16 @@ def update_event(clubID,eventID):
 		return "Event updated successfully."
 	except:
 		return "Check the clubID and eventID."
+
+@app.route("/del_event/<clubID>/<eventID>") #delete an event
+def del_event(clubID,eventID):
+	query="DELETE FROM Events WHERE clubID ='"+clubID+ "'AND eventID='"+eventID+"'"
+	try:
+		mycursor.execute(query)
+		mydb.commit()
+		return "Event deleted successfully."
+	except:
+		return "Check the clubID and eventID"
 		
 		
 
