@@ -37,7 +37,26 @@ def create_event():
 		mydb.commit()
 		return "Event added successfully!"
 	except:
-		return "Check the clubID."	
+		return "Check the clubID."
+
+@app.route("/update_event/<clubID>/<eventID>") #update an existing event
+def update_event(clubID,eventID):
+	data=request.get_json()
+	eventName=data["eventName"]
+	about=data["about"]
+	eventDate=data["eventDate"]
+	eventTime=data["eventTime"]
+	eventVenue=data["eventVenue"]
+	registered=data["registered"]
+	attended=data["attended"]
+	query1="UPDATE Events SET eventName='"+eventName+"', about='"+about+"', eventDate='"+eventDate+"', eventTime='"+eventTime+"', eventVenue='"+eventVenue+"', registered='"+registered+"', attended='"+attended+"'  WHERE clubID ='"+clubID+ "'AND eventID='"+eventID+"'"
+	try:
+		mycursor.execute(query1)
+		mydb.commit()
+		return "Event updated successfully."
+	except:
+		return "Check the clubID and eventID."
+		
 		
 
 
