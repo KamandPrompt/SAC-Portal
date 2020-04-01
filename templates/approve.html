@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block css %}
+<style>
+  th,td{
+    padding:5px 10px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+  {% if reqList %}
+  <div style="margin:2% 0 0 35%;">
+    <table style="text-align:center;">
+      <tr>
+        <th>Requests</th>
+        <th>Action</th>
+      </tr>
+      {% for req in reqList %}
+        <form action="" method="POST">
+          <tr>
+            <td>{{req[0]}} wants to join {{req[2]}}</td>
+            <td>
+            <input type="submit" value="Accept" name="{{req[0]+' '+req[3]}} accept">&nbsp
+            <input type="submit" value="Reject" name="{{req[0]+' '+req[3]}} reject">
+            </td>
+          </tr>
+        </form>
+      {% endfor %}
+    </table>
+  </div>
+  {% else %}
+  <h3 style="text-align:center;">You currently don't have any requests from anyone to join your club!</h3>
+  {% endif %}
+{% endblock %}

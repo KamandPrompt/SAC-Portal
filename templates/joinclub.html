@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block css %}
+<style>
+  td,th{
+    padding:5px 10px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+     {% for category,i in messages %}
+       {% if category=='success' %}
+         <p style="text-align:center;margin:2% 0 -1% 32.5%;padding:6px 0;width:35%;border-radius:7px;color:rgb(0,136,0);background:rgba(0,170,0, 0.3);">
+            {{ i }}
+         </p>
+       {% else %}
+        <p style="text-align:center;margin:2% 0 -1% 32.5%;padding:6px 0;width:35%;border-radius:7px;color:rgb(136, 0, 0);background:rgba(170, 0, 0, 0.3);">
+           {{ i }}
+        </p>
+       {% endif %}`
+     {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% if notjoined|length %}
+  <div style="margin:20px 0 0 35%;">
+    <h3>Clubs You Have Not Joined</h3><br>
+      <table style="margin-left:6%;">
+        <tr>
+          <th>Clubs</th>
+          <th>Join</th>
+        </tr>
+        {% for club in notjoined %}
+          <form method="POST">
+            <tr>
+              <td>{{club}}</td>
+              <td><input type="submit" value="Join" name="{{club}}"><br></td>
+            </tr>
+          </form>
+        {% endfor %}
+      </table>
+    </div>
+    {% else %}
+    <p>You have already joined all clubs!</p>
+  {% endif %}
+  {% if joined|length %}
+  <div style="margin:20px 0 0 34%;">
+    <h3>Clubs You Have Already Joined</h3>
+    <div style="margin-left:10%;">
+    {% for club in joined %}
+      {{ club }}<br><br>
+    {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
