@@ -21,7 +21,7 @@ def Login():
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
 #API to turn a normal user into an admin
-@app.route("/makeadmin/<uid>", methods=['GET'])
+@app.route("/makeadmin/<uid>", methods=['POST'])
 def make_admin(uid):
     #First check if session is actually logged in
 
@@ -67,7 +67,7 @@ def make_admin(uid):
         return render_template('login.html', error = error)  #API : Login should be ready
 
 #API to turn an admin into a normal user
-@app.route("/removeadmin/<uid>", methods=['GET'])
+@app.route("/removeadmin/<uid>", methods=['POST'])
 def remove_admin(uid):
     #First check if session is actually logged in
 
