@@ -1,4 +1,4 @@
-from flask import url_for,render_template,redirect,Flask,flash, request, jsonify
+from flask import url_for,render_template,redirect,Flask,flash, request, jsonify, session
 from forms import LoginForm
 from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement, sqlerror   #Imported the mysqlconnect.py file from Make_tables folder
 #use sqlerror to track errors in mysql databases
@@ -21,28 +21,37 @@ def Login():
             flash('Login Unsuccessful. Invalid Email/Password')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
-#Example  https://host/leaveclub?userID='B19188'&clubID='C10001'
+
 @app.route('/leaveclub', methods = ['POST'])
 def leave_club():
+    ''' Example of JSON data to be send
     data = {
-        "tablename" : "ClubMembers",
-        "userID" : request.args.get('userID'),
-        "clubID" : request.args.get('clubID')
+        "clubID" : "C10001"
         }
-    stmt = "DELETE FROM ClubMembers WHERE userID='"+data["userID"]+"' and clubID='"+data["clubID"]+"';"
-    #print(stmt)
-    success = 0;msg=''
-    try:
-        mycursor.execute(stmt)
-        mydb.commit()
-        success=1
-        msg = "Deleted"
-    except sqlerror as err:
-        success=0
-        msg = str(err)
-    
-    return(jsonify(success=success,msg=msg))
+    '''
+    is_login = session['logged_in']
+    #is_login = True
 
+    if(is_login):
+        data = request.get_json()
+        usrID = session['username']
+        stmt = "DELETE FROM ClubMembers WHERE userID='"+userID+"' and clubID='"+data["clubID"]+"';"
+        #print(stmt)
+        success = 0;msg=''
+        try:
+            mycursor.execute(stmt)
+            mydb.commit()
+            success=1
+            msg = "Deleted"
+        except sqlerror as err:
+            success=0
+            msg = str(err)
+        
+        return(jsonify(success=success,msg=msg))
+    else:
+        error = "Not logged in, Please Log In!"
+        #This will only work if login.html is defined
+        return render_template('login.html', error = error, form =form)
 
 if __name__=="__main__":
     app.run(debug=True)
