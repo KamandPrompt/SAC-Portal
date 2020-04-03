@@ -28,16 +28,9 @@ def make_admin(uid):
     if session['logged_in'] == True:
 
         #Now check if the loggined user is admin or not
-        isadmin=0
-        try:
-            stmt = "select admin from Users where userID='"+session['username']+"';"
-            mycursor.execute(stmt)
-            isadmin = int(mycursor.fetchone()[0])
-        except sqlerror as err:
-            return str(err)
-
-        # Now if it is an admin, check if the user exists
+        isadmin=session['admin']
         if(isadmin):
+            # Now if it is an admin, check if the user exists
             try:
                 stmt = "select admin from Users where userID='"+uid+"';"
                 mycursor.execute(stmt)
@@ -64,7 +57,7 @@ def make_admin(uid):
             return error
     else:
         error = "You are not logged in, Please Login!"
-        return render_template('login.html', error = error)  #API : Login should be ready
+        return render_template('login.html', error = error, form = form)  #API : Login should be ready
 
 #API to turn an admin into a normal user
 @app.route("/removeadmin/<uid>", methods=['POST'])
@@ -74,16 +67,9 @@ def remove_admin(uid):
     if session['logged_in'] == True:
 
         #Now check if the loggined user is admin or not
-        isadmin=0
-        try:
-            stmt = "select admin from Users where userID='"+session['username']+"';"
-            mycursor.execute(stmt)
-            isadmin = int(mycursor.fetchone()[0])
-        except sqlerror as err:
-            return str(err)
-
-        # Now if it is an admin, check if the admin exists
+        isadmin = session['admin']
         if(isadmin):
+        	# Now if it is an admin, check if the admin exists
             try:
                 stmt = "select admin from Users where userID='"+uid+"';"
                 mycursor.execute(stmt)
@@ -110,7 +96,7 @@ def remove_admin(uid):
             return error
     else:
         error = "You are not logged in, Please Login!"
-        return render_template('login.html', error = error)  #API : Login should be ready
+        return render_template('login.html', error = error, form=form)  #API : Login should be ready
 
 
 
