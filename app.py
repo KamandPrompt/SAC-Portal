@@ -20,14 +20,13 @@ def Login():
             flash('Login Unsuccessful. Invalid Email/Password')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
-@app.route("/AddCoordinator",methods=['GET','POST'])
+@app.route("/AddCoordinator",methods=['POST'])
 def AddCoordinator():
     email=session['email'][0:6]
     isadmin=mycursor.execute('SELECT EXISTS(SELECT * from Coordinators WHERE userID="'+email+'");')
     if(isadmin):
-        data={} #The possible input method can be decided after designing the frontend for the page to add coordinators
-        userID=data['userID']
-        clubID=data['clubID']
+        userID=request.args['userID']
+        clubID=request.args['clubID']
         try:
             mycursor.execute('INSERT into Coordinators VALUES("'+clubID+'","'+userID+'");')
             mydb.commit()
