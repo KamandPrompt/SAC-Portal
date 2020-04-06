@@ -1,11 +1,10 @@
-from flask import url_for,render_template,redirect,Flask,flash,request
+from flask import url_for,render_template,redirect,Flask,flash,request,session
 from forms import LoginForm
 from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement   #Imported the mysqlconnect.py file from Make_tables folder
 import numpy as np
 
 app=Flask(__name__,static_url_path='/public')
 app.config['SECRET_KEY']='c828b6ff21f45063fd7860e5c1b1d233'
-app.jinja_env.filters['zip'] = zip
 
 @app.route('/')
 def home():
@@ -16,14 +15,19 @@ def Login():
     form=LoginForm()
     if form.validate_on_submit():
         if form.email.data[1:6].isdecimal() and form.email.data[6:]=='@students.iitmandi.ac.in' :
+            session['uid']=form.email.data[:6]
             flash('You have logged-in successfully!',category='success')
             return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Invalid Email/Password',category='failure')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
-@app.route('/<uid>/joinclub',methods=['GET','POST'])
-def join(uid):
+@app.route('/joinclub',methods=['GET','POST'])
+def join():
+    try:
+        uid=session['uid']
+    except:
+        return redirect(url_for("Login"))
     mycursor.execute('SELECT name FROM users WHERE userID="{0}"'.format(uid))
     check=mycursor.fetchall()
     if not len(check):
@@ -60,17 +64,21 @@ def join(uid):
                     mycursor.execute("INSERT INTO clubmembers VALUES('{0}','{1}')".format(uid,notjoined[i][2]))
                     mydb.commit()
                     flash('You have successfully joined '+notjoined[i][0],category="success")
-                    return redirect('/'+uid+'/joinclub')
+                    return redirect('/joinclub')
             else:
                 print('Inside',notjoined[i][0])
                 mycursor.execute("INSERT INTO MemberRequests VALUES('{0}','{1}','{2}','Pending')".format(uid,'Join',notjoined[i][2]))
                 mydb.commit()
                 flash('Your request has been sent. It will be approved/dissaproved by the Club Coordinator',category="success")
-                return redirect('/'+uid+'/joinclub')
+                return redirect('/joinclub')
     return render_template('joinclub.html',notjoined=clubsnotjoined,joined=clubsjoined,title='Join a Club! | SAC Portal')
 
-@app.route('/<uid>/requests',methods=['GET','POST'])
-def approve(uid):
+@app.route('/requests',methods=['GET','POST'])
+def approve():
+    try:
+        uid=session['uid']
+    except:
+        return redirect(url_for("Login"))
     mycursor.execute("SELECT clubID FROM coordinators WHERE userID='{0}' ".format(uid))
     clubs=mycursor.fetchall()
     if request.method=='POST':
