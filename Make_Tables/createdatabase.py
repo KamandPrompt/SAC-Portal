@@ -9,7 +9,7 @@ except:
 
 #Creating the databases
 mycursor.execute("create database sac_data")
-print("Database sac_data created successfully")	
+print("Database sac_data created successfully")
 mycursor.execute("use sac_data")
 
 #Creating the tables
@@ -27,6 +27,9 @@ print("Successfully Created Table Coordinators ")  #To store who is the coordie 
 
 mycursor.execute("CREATE TABLE Events(eventID Integer(4) PRIMARY KEY, eventName varchar(30), about varchar(600), eventDate date, clubID char(6), registered varchar(3000), attended varchar(3000), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
 print("Successfully Created Events Table")  #To store all the events
+
+mycursor.execute("CREATE TABLE MemberRequests(userID char(6), requestMessage varchar(600), clubID char(6), reqStatus set('Accepted','Rejected','Pending') FOREIGN KEY (userID) REFERENCES Users(userID), FOREIGN KEY (clubID) REFERENCES Clubs(clubID));")
+print("Successfully Created Table MemberRequests") #To store all join/leave/make admin requests.
 
 print("Done Creating Tables")
 mycursor.close()
