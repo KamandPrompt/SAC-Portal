@@ -21,25 +21,40 @@ def Login():
             flash('Login Unsuccessful. Invalid Email/Password')
     return render_template('login.html',title='Login | SAC Portal, IIT Mandi',form=form)
 
-
+#API so that the user can leave a club and it's data from the database gets removed
+# Example of JSON data to be send
+#    data = {
+#        "clubID" : "C10001"
+#    }
+# Return also in JSON Form:
+# RETURN = {
+#    "success": 1 or 0
+#    "msg": "Deleted" or error message
+# }
 @app.route('/leaveclub', methods = ['POST'])
 def leave_club():
-    ''' Example of JSON data to be send
-    data = {
-        "clubID" : "C10001"
-        }
-    '''
-    is_login = session['logged_in']
-    #is_login = True
+    
+    success = 0;msg=''   # Variables defined here
+    
+    # First check if the user is logged in or not
+    is_login = False
+    try:
+        is_login = session['logged_in']
+    except KeyError as err:  # If the session or key is not defined error will come
+        return(jsonify(success=success, Error='KeyError: '+str(err)))
 
     if(is_login):
+        
+        # Requesting data in JSON Format
         data = request.get_json()
-        usrID = session['username']
-        stmt = "DELETE FROM ClubMembers WHERE userID='"+userID+"' and clubID='"+data["clubID"]+"';"
+        userID = session['userID']
+        clubID = data['clubID'] #Getting the data from clubID
+
+        stmt = "DELETE FROM ClubMembers WHERE userID='"+userID+"' and clubID='"+clubID+"';"
         #print(stmt)
-        success = 0;msg=''
+
         try:
-            mycursor.execute(stmt)
+            mycursor.execute(stmt)   # Executing the mysql statement
             mydb.commit()
             success=1
             msg = "Deleted"
@@ -50,8 +65,9 @@ def leave_club():
         return(jsonify(success=success,msg=msg))
     else:
         error = "Not logged in, Please Log In!"
-        #This will only work if login.html is defined
-        return render_template('login.html', error = error, form =form)
+        #This will only work if login.html is defined, so just returning the errror
+        #return render_template('login.html', error = error, form =form)
+        return(jsonify(success=success,msg=error))
 
 if __name__=="__main__":
     app.run(debug=True)
