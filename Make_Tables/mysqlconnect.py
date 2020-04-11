@@ -1,6 +1,7 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from mysql.connector import Error as sqlerror
 
 directory = os.getcwd()
 envindex = directory.find('Make_Tables')
