@@ -1,6 +1,7 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from mysql.connector import Error as sqlerror
 
 directory = os.getcwd()
 envindex = directory.find('Make_Tables')
@@ -18,8 +19,9 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 try:
         mycursor.execute("use sac_data;")
-except:
-        print("sac_data does not exists")
+except sqlerror as err:
+        print("Database sac_data does not exists")
+        print() 
 
 
 def create_insert_statement(data):   #pass the data in the JSON Format
@@ -51,3 +53,4 @@ def create_insert_statement(data):   #pass the data in the JSON Format
 
         stmt = "INSERT INTO "+clst+" VALUES"+vlst+";"
         return stmt
+
