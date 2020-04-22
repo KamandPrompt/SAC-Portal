@@ -13,7 +13,7 @@ print("Database sac_data created successfully")
 mycursor.execute("use sac_data")
 
 #Creating the tables
-mycursor.execute("CREATE TABLE Users(userID char(6) primary key, email varchar(30) unique, password varchar(64), name varchar(64), admin boolean);")
+mycursor.execute("CREATE TABLE Users(userID char(6) primary key, email varchar(30) unique, password varchar(256), name varchar(64), admin boolean);")
 print("Successfully Created Table Users ")   #To Store the login details
 
 mycursor.execute("CREATE TABLE Clubs(clubID char(6) primary key, clubName varchar(64) NOT NULL, about varchar(600), type set('open','close'));")

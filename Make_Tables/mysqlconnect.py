@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 directory = os.getcwd()
 envindex = directory.find('Make_Tables')
 if envindex!=-1:  #If current working directory is Make_Tables
-	load_dotenv(directory[:envindex]+"/.env")
+	load_dotenv(directory[:envindex]+"/.sampleenv")
 else:
-	load_dotenv(directory+"/.env")
+	load_dotenv(directory+"/.sampleenv")
 
 mydb = mysql.connector.connect(
         host = os.environ.get("DATABASE_HOST"),
