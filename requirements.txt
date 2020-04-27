@@ -13,3 +13,4 @@ six==1.14.0
 Werkzeug==1.0.0
 WTForms==2.2.1
 passlib==1.7.1
+libmysqlclient-dev==5.7.29

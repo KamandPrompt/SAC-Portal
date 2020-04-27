@@ -4,6 +4,7 @@ from forms import RegisterForm, LoginForm
 from Make_Tables.mysqlconnect import mydb, mycursor, create_insert_statement   #Imported the mysqlconnect.py file from Make_tables folder
 import gc
 from helper import not_logged_in, is_logged_in
+from MySQLdb import escape_string as thwart
 
 
 app=Flask(__name__,static_url_path='/public')
@@ -26,20 +27,13 @@ def register():
 
     if request.method == 'POST' and form.validate():
         
-        if (form.userID.data[0] == 'b' or form.userID.data[0] == 'd' or form.userID.data[0] == 't' or form.userID.data[0] == 's' or form.userID.data[0] == 'v' ) and form.userID.data[1:6].isdecimal :
-            userID = form.userID.data
-        else:
-            return 'Not a valid userID!'
-
-        if form.email.data[0:6] == form.userID.data and form.email.data[6:]=='@students.iitmandi.ac.in' :
-            email = form.email.data
-        else:
-            return 'Please enter valid email!'
+        userID = form.userID.data
+        email = form.email.data
         name = form.name.data
         password = sha256_crypt.hash(str(form.password.data))
         admin = 0
         
-        mycursor.execute("SELECT * FROM Users WHERE userID = (%s)", (userID,))
+        mycursor.execute("""SELECT * FROM Users WHERE userID = %s""", (thwart(userID),))
 
         row = mycursor.fetchone()
 
@@ -48,7 +42,8 @@ def register():
         else:
 
             # Execute query
-            mycursor.execute("INSERT INTO Users(userID, email, password, name, admin) VALUES(%s, %s, %s, %s, %s)", (userID, email, password, name, admin))
+            admin = b'0'
+            mycursor.execute("""INSERT INTO Users(userID, email, password, name, admin) VALUES(%s, %s, %s, %s, %s)""", (thwart(userID), thwart(email), thwart(password), thwart(name), thwart(admin)))
 
             # Commit to DB
             mydb.commit()
@@ -80,7 +75,7 @@ def login():
         password_candidate = form.password.data
 
         # Get User by userID
-        mycursor.execute("SELECT * FROM Users WHERE userID = %s", (userID,))
+        mycursor.execute("""SELECT * FROM Users WHERE userID = %s""", (thwart(userID),))
 
 
         # Get stored data from database
