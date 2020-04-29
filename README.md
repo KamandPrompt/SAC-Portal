@@ -54,5 +54,22 @@ python3 createdatabase.py
 The database with the tables will be created. If error comes, check that you have entered correct details for your database in .env file and mysql is running in your computer.
 
 
+Creating .env file
+---
 
+For creating .env file on your local system, copy the content of .sampleenv and then in the below mentioned line:
+```
+DATABASE_PASSWORD=
+```
 
+Add the password, you set while setting up mysql on your local system, after the equal sign.
+Or leave it blank if you didn't set any password.
+
+By default, DATABASE_USER=root and there is no password
+
+If you set up a username also while setting up mysql then,
+In the below mentioned line of .sampleenv, replace root with your username of mysql:
+
+```
+DATABASE_USER=root
+```
